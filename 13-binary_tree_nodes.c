@@ -1,33 +1,22 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "binary_trees.h"
 
 /**
- * main - Entry point
- *
- * Return: Always 0 (Success)
+ * binary_tree_nodes - measures the balance factor of a binary tree
+ * @tree: root
+ * Return: nodes
  */
-int main(void)
+
+size_t binary_tree_nodes(const binary_tree_t *tree)
 {
-    binary_tree_t *root;
-    int balance;
+	size_t size;
 
-    root = binary_tree_node(NULL, 98);
-    root->left = binary_tree_node(root, 12);
-    root->right = binary_tree_node(root, 402);
-    binary_tree_insert_right(root->left, 54);
-    binary_tree_insert_right(root, 128);
-    binary_tree_insert_left(root, 45);
-    binary_tree_insert_right(root->left, 50);
-    binary_tree_insert_left(root->left->left, 10);
-    binary_tree_insert_left(root->left->left->left, 8);
-    binary_tree_print(root);
+	if (tree == NULL)
+		return (0);
 
-    balance = binary_tree_balance(root);
-    printf("Balance of %d: %+d\n", root->n, balance);
-    balance = binary_tree_balance(root->right);
-    printf("Balance of %d: %+d\n", root->right->n, balance);
-    balance = binary_tree_balance(root->left->left->right);
-    printf("Balance of %d: %+d\n", root->left->left->right->n, balance);
-    return (0);
+	if (tree->left == NULL && tree->right == NULL)
+		return (0);
+
+	size = binary_tree_nodes(tree->left) + 1 + binary_tree_nodes(tree->right);
+
+	return (size);
 }
